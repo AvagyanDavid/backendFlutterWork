@@ -45,7 +45,7 @@ export const BarmanBegin = (req, res) => {
     db.query(`INSERT INTO BarmanBegin_StripBarsukKazan (Date,Time,OpenCheckout,Comment_OpenCheckout,CommentDirector_OpenCheckout,CheckAndTakeAlcogol,CheckAndTakeAlcogolPhoto,
            Comment_CheckAndTakeAlcogol,CommentDirector_CheckAndTakeAlcogol,ExtractorHumidifier,Comment_ExtractorHumidifier,CommentDirector_ExtractorHumidifier,WriteStopList,
                Comment_WriteStopList, CommentDirector_WriteStopList,  RubTheDishes,RubTheDishesPhoto,Comment_RubTheDishes,CommentDirector_RubTheDishes,
-               wipeDustShelving, WipeDustShelvingBeginPhoto, Comment_WipeDustShelving, CommentDirector_WipeDustShelving,
+               wipeDustShelving, WipeDustShelvingPhoto, Comment_WipeDustShelving, CommentDirector_WipeDustShelving,
                Cleaning,CleaningPhoto,Comment_Cleaning,CommentDirector_Cleaning, Users_idUsers) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
         [req.body.date, req.body.time, openCheckout, req.body.commentOpenCheckout, req.body.commentDirectorOpenCheckout,
         checkAndTakeAlcogol, currentPath['checkAndTakeAlcogolFile'],req.body.commentCheckAndTakeAlcogol,req.body.commentDirectorCheckAndTakeAlcogol,
@@ -107,12 +107,12 @@ export const BarmanEnd = (req, res) => {
 
     db.query(`INSERT INTO BarmanEnd_StripBarsukKazan (Date,Time,Alcogol,Nonalcogol,Tobacco,Comment_Application,CommentDirector_Application,FillOutReport,Comment_FillOutReport,
         CommentDirector_FillOutReport,CloseShift,Comment_CloseShift,CommentDirector_CloseShift,CleanlinessWorkplace,CleanlinessWorkplacePhoto,Comment_CleanlinessWorkplace,
-        CommentDirector_CleanlinessWorkplace,Users_idUsers) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
+        CommentDirector_CleanlinessWorkplace,WipeDustShelving,WipeDustShelvingPhoto,Comment_WipeDustShelving,CommentDirector_WipeDustShelving,Users_idUsers) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
         [req.body.date, req.body.time, alcogol, nonalcogol, tobacco,req.body.commentApplication, req.body.commentDirectorApplication,
         fillOutReport,req.body.commentFillOutReport, req.body.commentDirectorFillOutReport,
         closeShift, req.body.commentCloseShift, req.body.commentDirectorCloseShift,
         cleanlinessWorkplace, currentPath['cleanlinessWorkplacePath'], req.body.commentCleanlinessWorkplace, req.body.commentDirectorCleanlinessWorkplace,
-        wipeDustShelvingEnd,currentPath['wipeDustShelvingBeginFile'],req.body.commentWipeDustSelvingEnd,req.body.commentDirectorWipeDustSelvingEnd,idUser],
+        wipeDustShelvingEnd,currentPath['wipeDustShelvingEndFile'],req.body.commentWipeDustShelvingEnd,req.body.commentDirectorWipeDustShelvingEnd,idUser],
         (err, otvet) => {
             if (error) {
                 console.log(error);
@@ -130,7 +130,11 @@ export const BarmanEnd = (req, res) => {
 export const ShowBarmanBegin = (req, res) => {
     db.query({
         dateStrings: true,
-        sql: `select BarmanBegin_StripBarsukKazan.OpenCheckout,BarmanBegin_StripBarsukKazan.Comment_OpenCheckout ,BarmanBegin_StripBarsukKazan.CommentDirector_OpenCheckout, BarmanBegin_StripBarsukKazan.CheckAndTakeAlcogol,BarmanBegin_StripBarsukKazan.CheckAndTakeAlcogolPhoto,BarmanBegin_StripBarsukKazan.Comment_CheckAndTakeAlcogol,BarmanBegin_StripBarsukKazan.CommentDirector_CheckAndTakeAlcogol,BarmanBegin_StripBarsukKazan.ExtractorHumidifier, BarmanBegin_StripBarsukKazan.Comment_ExtractorHumidifier, BarmanBegin_StripBarsukKazan.CommentDirector_ExtractorHumidifier, BarmanBegin_StripBarsukKazan.WriteStopList, BarmanBegin_StripBarsukKazan.Comment_WriteStopList, BarmanBegin_StripBarsukKazan.CommentDirector_WriteStopList, BarmanBegin_StripBarsukKazan.RubTheDishes, BarmanBegin_StripBarsukKazan.RubTheDishesPhoto, BarmanBegin_StripBarsukKazan.Comment_RubTheDishes, BarmanBegin_StripBarsukKazan.CommentDirector_RubTheDishes,BarmanBegin_StripBarsukKazan.Cleaning , BarmanBegin_StripBarsukKazan.CleaningPhoto , BarmanBegin_StripBarsukKazan.Comment_Cleaning , BarmanBegin_StripBarsukKazan.CommentDirector_Cleaning
+        sql: `select OpenCheckout,Comment_OpenCheckout,CommentDirector_OpenCheckout,CheckAndTakeAlcogol,CheckAndTakeAlcogolPhoto,
+        Comment_CheckAndTakeAlcogol,CommentDirector_CheckAndTakeAlcogol,ExtractorHumidifier,Comment_ExtractorHumidifier,CommentDirector_ExtractorHumidifier,WriteStopList,
+            Comment_WriteStopList, CommentDirector_WriteStopList,  RubTheDishes,RubTheDishesPhoto,Comment_RubTheDishes,CommentDirector_RubTheDishes,
+            wipeDustShelving, WipeDustShelvingPhoto, Comment_WipeDustShelving, CommentDirector_WipeDustShelving,
+            Cleaning,CleaningPhoto,Comment_Cleaning,CommentDirector_Cleaning, Users.Login
         from Users, BarmanBegin_StripBarsukKazan where BarmanBegin_StripBarsukKazan.Date = '${req.body.Date}' AND Users.idUsers = BarmanBegin_StripBarsukKazan.Users_idUsers;`
     }, (error, otvet) => {
         if (error) {
@@ -145,7 +149,9 @@ export const ShowBarmanBegin = (req, res) => {
 export const ShowBarmanEnd = (req, res) => {
     db.query({
         dateStrings: true,
-        sql: `select BarmanEnd_StripBarsukKazan.Alcogol,BarmanEnd_StripBarsukKazan.NonAlcogol ,BarmanEnd_StripBarsukKazan.Tobacco, BarmanEnd_StripBarsukKazan.Comment_Application,BarmanEnd_StripBarsukKazan.CommentDirector_Application,BarmanEnd_StripBarsukKazan.FillOutReport,BarmanEnd_StripBarsukKazan.Comment_FillOutReport ,BarmanEnd_StripBarsukKazan.CommentDirector_FillOutReport,BarmanEnd_StripBarsukKazan.CloseShift,BarmanEnd_StripBarsukKazan.Comment_CloseShift,BarmanEnd_StripBarsukKazan.CommentDirector_CloseShift,BarmanEnd_StripBarsukKazan.CleanlinessWorkplace, BarmanEnd_StripBarsukKazan.CleanlinessWorkplacePhoto , BarmanEnd_StripBarsukKazan.Comment_CleanlinessWorkplace, BarmanEnd_StripBarsukKazan.CommentDirector_CleanlinessWorkplace 
+        sql: `select Alcogol,Nonalcogol,Tobacco,Comment_Application,CommentDirector_Application,FillOutReport,Comment_FillOutReport,
+        CommentDirector_FillOutReport,CloseShift,Comment_CloseShift,CommentDirector_CloseShift,CleanlinessWorkplace,CleanlinessWorkplacePhoto,Comment_CleanlinessWorkplace,
+        CommentDirector_CleanlinessWorkplace,WipeDustShelving,WipeDustShelvingPhoto,Comment_WipeDustShelving,CommentDirector_WipeDustShelving, Users.Login
         from Users, BarmanEnd_StripBarsukKazan where BarmanEnd_StripBarsukKazan.Date = '${req.body.Date}' AND Users.idUsers = BarmanEnd_StripBarsukKazan.Users_idUsers;`
     }, (error, otvet) => {
         if (error) {
