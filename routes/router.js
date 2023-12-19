@@ -1,8 +1,8 @@
 import  express from "express";
-import { CheckReportHostBegin, CheckReportHostEnd,HostBegin, HostEnd, ShowHostBegin, ShowHostEnd, /*UpdateHostBegin, UpdateHostEnd*/ } from "../database/host.js";
+import { CheckReportHostBegin, CheckReportHostEnd,HostBegin, HostEnd, ShowHostBegin, ShowHostEnd, UpdateHostBegin, UpdateHostEnd } from "../database/host.js";
 import { ShowUser } from "../database/host.js";
-import { ArtBegin, ArtEnd, CheckReportArtBegin, CheckReportArtEnd, ShowArtBegin, ShowArtEnd,} from "../database/art.js";
-import { WaiterBegin, WaiterEnd, CheckReportWaiterBegin, CheckReportWaiterEnd,ShowWaiterEnd, ShowWaiterBegin,} from "../database/waiter.js";
+import { ArtBegin, ArtEnd, CheckReportArtBegin, CheckReportArtEnd, ShowArtBegin, ShowArtEnd,UpdateArtBegin, UpdateArtEnd} from "../database/art.js";
+import { WaiterBegin, WaiterEnd, CheckReportWaiterBegin, CheckReportWaiterEnd,ShowWaiterEnd, ShowWaiterBegin, UpdateWaiterBegin, UpdateWaiterEnd} from "../database/waiter.js";
 import { BarmanBegin, BarmanEnd, CheckReportBarmanBegin,CheckReportBarmanEnd ,ShowBarmanBegin, ShowBarmanEnd,} from "../database/barman.js";
 import multer from "multer";
 import { Registration,Authorization } from "../database/query.js";
@@ -52,14 +52,14 @@ router.post('/CheckReportBarmanEnd', CheckReportBarmanEnd);
 router.post('/CheckReportWaiterBegin', CheckReportWaiterBegin);
 router.post('/CheckReportWaiterEnd', CheckReportWaiterEnd);
 
-// router.post('/UpdateHostBegin', UpdateHostBegin);
-// router.post('/UpdateHostEnd', UpdateHostEnd);
-// router.post('/UpdateArtBegin', UpdateArtBegin);
-// router.post('/UpdateArtEnd', UpdateArtEnd);
-// router.post('/UpdateWaiterBegin', UpdateWaiterBegin);
-// router.post('/UpdateWaiterEnd', UpdateWaiterEnd);
-// router.post('/UpdateBarmanBegin', UpdateBarmanBegin);
-// router.post('/UpdateBarmanEnd', UpdateBarmanEnd);
+router.post('/UpdateHostBegin', UpdateHostBegin);
+router.post('/UpdateHostEnd', UpdateHostEnd);
+router.post('/UpdateArtBegin', UpdateArtBegin);
+router.post('/UpdateArtEnd', UpdateArtEnd);
+router.post('/UpdateWaiterBegin', UpdateWaiterBegin);
+router.post('/UpdateWaiterEnd', UpdateWaiterEnd);
+router.post('/UpdateBarmanBegin', UpdateBarmanBegin);
+router.post('/UpdateBarmanEnd', UpdateBarmanEnd);
 
 router.post('/Registration', Registration);
 router.post('/Authorization', Authorization);

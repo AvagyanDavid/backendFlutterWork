@@ -141,30 +141,26 @@ export const CheckReportWaiterEnd = (req, res) => {
     )
 }
 
-// export const UpdateWaiterBegin = (req, res) => {
-//     // db.query(``,
-//         [req.body.date, req.body.time, req.body.takeRadioTerminalTelephone, req.body.commentTakeRadioTerminalTelephone,req.body.commentDirectorTakeRadioTerminalTelephone,
-//             req.body.sendMessageWatsApp, req.body.sendMessageTelegram, req.body.commentSendMessage,req.body.commentDirectorSendMessage,
-//             req.body.idUsers],
-//         (error, otvet) => {
-//             if (error) {
-//                 console.log(error);
-//             } else {
-//                 res.status(200);
-//             }
-//         });
-// }
+export const UpdateWaiterBegin = (req, res) => {
+    db.query(`update WaiterBegin_StripBarsukKazan set CommentDirector_TableArrangment = ?, CommentDirector_WipeTheTables = ?, CommentDirector_InspectionOfTheHall = ?, CommentDirector_ArrangeOttomans = ?, CommentDirector_PutEverithingOnTheTables = ?, CommentDirector_WipeMenu = ?, CommentDirector_CleanWineCabinet = ?, CommentDirector_FillTheNapkinHolder = ?, CommentDirector_GarbageEmpty = ?, CommentDirector_PassDishesKitchen = ?, CommentDirector_RequestStartAndStopList = ?, CommentDirector_CleanHumidor = ? where idWaiterBegin = ? and Date = ?`,
+        [req.body.commentDirectorTableArrangment,req.body.commentDirectorWipeTheTables,req.body.commentDirectorInspectionOfTheHall,req.body.commentDirectorArrangeOttomans,req.body.commentDirectorPutEverithingOnTheTables,req.body.commentDirectorWipeMenu,req.body.commentDirectorCleanWineCabinet, req.body.commentDirectorFillTheNapkinHolder,req.body.commentDirectorGarbageEmpty,req.body.commentDirectorPassDishesKitchen, req.body.commentDirectorRequestStartAndStopList,req.body.commentDirectorCleanHumidor, req.body.idUsers,req.body.date],
+        (error, otvet) => {
+            if (error) {
+                console.log(error);
+            } else {
+                res.status(200);
+            }
+        });
+}
 
-// export const UpdateWaiterEnd = (req, res) => {
-//     // db.query(``,
-//         [req.body.date, req.body.time, req.body.takeRadioTerminalTelephone, req.body.commentTakeRadioTerminalTelephone,req.body.commentDirectorTakeRadioTerminalTelephone,
-//             req.body.sendMessageWatsApp, req.body.sendMessageTelegram, req.body.commentSendMessage,req.body.commentDirectorSendMessage,
-//             req.body.idUsers],
-//         (error, otvet) => {
-//             if (error) {
-//                 console.log(error);
-//             } else {
-//                 res.status(200);
-//             }
-//         });
-// }
+export const UpdateWaiterEnd = (req, res) => {
+    db.query(`update WaiterEnd_StripBarsukKazan set CommentDirector_ChargerCandle = ?, CommentDirector_FixOttomansAndTables = ?, CommentDirector_CleanTables = ?, CommentDirector_PutAwayTheNapkins = ? where idWaiterEnd = ? and Date = ?`,
+        [req.body.commentDirectorChargerCandle, req.body.commentDirectorFixOttomansAndTables, req.body.commentDirectorCleanTables, req.body.commentDirectorPutAwayTheNapkins, req.body.idUsers, req.body.date],
+        (error, otvet) => {
+            if (error) {
+                console.log(error);
+            } else {
+                res.status(200);
+            }
+        });
+}

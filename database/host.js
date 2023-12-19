@@ -121,30 +121,31 @@ export const CheckReportHostEnd = (req, res) => {
     }
     )
 }
-// ДОБАВЛЕНИЕ ДАТЫ В ЗАПРОС UPDATE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!11
-// export const UpdateHostBegin = (req, res) => {
-//     db.query(`update HostBegin_StripBarsukKazan set commentDirector_TakeRadioTerminalTelephone = ?, commentDirector_SendMessage = ? where idHostBegin = ?;`,
-//         [req.body.commentDirectorTakeRadioTerminalTelephone,req.body.commentDirectorSendMessage,req.body.idUsers],
-//         (error, otvet) => {
-//             if (error) {
-//                 console.log(error);
-//             } else {
-//                 res.status(200);
-//             }
-//         });
-// }
 
-// export const UpdateHostEnd = (req, res) => {
-//     db.query(`update HostEnd_StripBarsukKazan set CommentDirector_ChargerRadioTerminalTelephone = ?, CommentDirector_Workplace = ? where idHostEnd = ?;`,
-//         [req.body.commentDirectorChargeRadioTerminalTelephone, req.body.commentDirectorCleanlinessWorkplaceHost,req.body.idUsers],
-//         (error, otvet) => {
-//             if (error) {
-//                 console.log(error);
-//             } else {
-//                 res.status(200);
-//             }
-//         });
-// }
+export const UpdateHostBegin = (req, res) => {
+    db.query(`update HostBegin_StripBarsukKazan set CommentDirector_TakeRadioTerminalTelephone = ?, CommentDirector_SendMessage = ? where idHostBegin = ? and Date = ?;`,
+        [req.body.commentDirectorTakeRadioTerminalTelephone,req.body.commentDirectorSendMessage,req.body.idUsers, req.body.date],
+        (error, otvet) => {
+            if (error) {
+                console.log(error);
+            } else {
+                res.status(200);
+            }
+        }
+    );
+}
+
+export const UpdateHostEnd = (req, res) => {
+    db.query(`update HostEnd_StripBarsukKazan set CommentDirector_ChargerRadioTerminalTelephone = ?, CommentDirector_Workplace = ? where idHostEnd = ? and Date = ?;`,
+        [req.body.commentDirectorChargeRadioTerminalTelephone, req.body.commentDirectorCleanlinessWorkplaceHost,req.body.idUsers,req.body.date],
+        (error, otvet) => {
+            if (error) {
+                console.log(error);
+            } else {
+                res.status(200);
+            }
+        });
+}
 
 
 
