@@ -16,7 +16,7 @@ export const ArtBegin = (req, res) => {
 export const ShowArtBegin = (req, res) => {
     db.query({
         dateStrings: true,
-        sql: `select ArtManagerBegin_StripBarsukKazan.ListArtist, ArtManagerBegin_StripBarsukKazan.Comment_ListArtist, ArtManagerBegin_StripBarsukKazan.CommentDirector_ListArtist,ArtManagerBegin_StripBarsukKazan.Readiness, ArtManagerBegin_StripBarsukKazan.Comment_Readiness,ArtManagerBegin_StripBarsukKazan.CommentDirector_Readiness,ArtManagerBegin_StripBarsukKazan.SendListOfGirls, ArtManagerBegin_StripBarsukKazan.Comment_SendListOfGirls, ArtManagerBegin_StripBarsukKazan.CommentDirector_SendListOfGirls,ArtManagerBegin_StripBarsukKazan.ListDJ , ArtManagerBegin_StripBarsukKazan.Comment_ListDJ,  ArtManagerBegin_StripBarsukKazan.CommentDirector_ListDJ, ArtManagerBegin_StripBarsukKazan.AnalyzeGraph , ArtManagerBegin_StripBarsukKazan.Comment_AnalyzeGraph, ArtManagerBegin_StripBarsukKazan.CommentDirector_AnalyzeGraph,ArtManagerBegin_StripBarsukKazan.ControlArtistAnalize ,ArtManagerBegin_StripBarsukKazan.Comment_ControlArtistAnalize, ArtManagerBegin_StripBarsukKazan.CommentDirector_ControlArtistAnalize,ArtManagerBegin_StripBarsukKazan.FiveMinutes, ArtManagerBegin_StripBarsukKazan.Comment_FiveMinutes, ArtManagerBegin_StripBarsukKazan.CommentDirector_FiveMinutes,ArtManagerBegin_StripBarsukKazan.FirstCard , ArtManagerBegin_StripBarsukKazan.SecondCard, ArtManagerBegin_StripBarsukKazan.ThirdCard , ArtManagerBegin_StripBarsukKazan.Comment_Card,ArtManagerBegin_StripBarsukKazan.CommentDirector_Card,ArtManagerBegin_StripBarsukKazan.Control1, ArtManagerBegin_StripBarsukKazan.Comment_Control1,ArtManagerBegin_StripBarsukKazan.Control2 , ArtManagerBegin_StripBarsukKazan.Comment_Control2,ArtManagerBegin_StripBarsukKazan.Control3 , ArtManagerBegin_StripBarsukKazan.Comment_Control3,ArtManagerBegin_StripBarsukKazan.Control4 , ArtManagerBegin_StripBarsukKazan.Comment_Control4,ArtManagerBegin_StripBarsukKazan.Control5 , ArtManagerBegin_StripBarsukKazan.Comment_Control5,ArtManagerBegin_StripBarsukKazan.ToyOrder , ArtManagerBegin_StripBarsukKazan.Comment_ToyOrder, ArtManagerBegin_StripBarsukKazan.CommentDirector_ToyOrder from Users,ArtManagerBegin_StripBarsukKazan where ArtManagerBegin_StripBarsukKazan.Date = '${req.body.Date}' AND Users.idUsers = ArtManagerBegin_StripBarsukKazan.Users_idUsers;`
+        sql: `select idArtManager,ArtManagerBegin_StripBarsukKazan.ListArtist, ArtManagerBegin_StripBarsukKazan.Comment_ListArtist, ArtManagerBegin_StripBarsukKazan.CommentDirector_ListArtist,ArtManagerBegin_StripBarsukKazan.Readiness, ArtManagerBegin_StripBarsukKazan.Comment_Readiness,ArtManagerBegin_StripBarsukKazan.CommentDirector_Readiness,ArtManagerBegin_StripBarsukKazan.SendListOfGirls, ArtManagerBegin_StripBarsukKazan.Comment_SendListOfGirls, ArtManagerBegin_StripBarsukKazan.CommentDirector_SendListOfGirls,ArtManagerBegin_StripBarsukKazan.ListDJ , ArtManagerBegin_StripBarsukKazan.Comment_ListDJ,  ArtManagerBegin_StripBarsukKazan.CommentDirector_ListDJ, ArtManagerBegin_StripBarsukKazan.AnalyzeGraph , ArtManagerBegin_StripBarsukKazan.Comment_AnalyzeGraph, ArtManagerBegin_StripBarsukKazan.CommentDirector_AnalyzeGraph,ArtManagerBegin_StripBarsukKazan.ControlArtistAnalize ,ArtManagerBegin_StripBarsukKazan.Comment_ControlArtistAnalize, ArtManagerBegin_StripBarsukKazan.CommentDirector_ControlArtistAnalize,ArtManagerBegin_StripBarsukKazan.FiveMinutes, ArtManagerBegin_StripBarsukKazan.Comment_FiveMinutes, ArtManagerBegin_StripBarsukKazan.CommentDirector_FiveMinutes,ArtManagerBegin_StripBarsukKazan.FirstCard , ArtManagerBegin_StripBarsukKazan.SecondCard, ArtManagerBegin_StripBarsukKazan.ThirdCard , ArtManagerBegin_StripBarsukKazan.Comment_Card,ArtManagerBegin_StripBarsukKazan.CommentDirector_Card,ArtManagerBegin_StripBarsukKazan.Control1, ArtManagerBegin_StripBarsukKazan.Comment_Control1,ArtManagerBegin_StripBarsukKazan.Control2 , ArtManagerBegin_StripBarsukKazan.Comment_Control2,ArtManagerBegin_StripBarsukKazan.Control3 , ArtManagerBegin_StripBarsukKazan.Comment_Control3,ArtManagerBegin_StripBarsukKazan.Control4 , ArtManagerBegin_StripBarsukKazan.Comment_Control4,ArtManagerBegin_StripBarsukKazan.Control5 , ArtManagerBegin_StripBarsukKazan.Comment_Control5,ArtManagerBegin_StripBarsukKazan.ToyOrder , ArtManagerBegin_StripBarsukKazan.Comment_ToyOrder, ArtManagerBegin_StripBarsukKazan.CommentDirector_ToyOrder from Users,ArtManagerBegin_StripBarsukKazan where ArtManagerBegin_StripBarsukKazan.Date = '${req.body.Date}' AND Users.idUsers = ArtManagerBegin_StripBarsukKazan.Users_idUsers;`
     }, (error, otvet) => {
         if (error) {
             console.log(error);
@@ -111,9 +111,51 @@ export const CheckReportArtEnd = (req, res) => {
 }
 
 export const UpdateArtBegin = (req, res) => {
-    db.query(`update ArtManagerBegin_StripBarsukKazan set CommentDirector_ListArtist = ?, CommentDirector_Readiness = ?, CommentDirector_SendListOfGirls = ?, CommentDirector_ListDJ = ?, CommentDirector_AnalyzeGraph = ?, CommentDirector_ControlArtistAnalize = ?, CommentDirector_FiveMinutes = ?, CommentDirector_Card = ?, CommentDirector_ToyOrder = ? where idArtManager = ? and Date = ?;`,
-        [ req.body.commentDirectorListArtist, req.body.commentDirectorReadiness, req.body.commentDirectorSendListOfGirls, req.body.commentDirectorListDJ, req.body.commentDirectorAnalyzeGraph, req.body.commentDirectorControlArtistAnalize, req.body.commentDirectorFiveMinutes, req.body.commentDirectorCard, req.body.commentDirectorToyOrder, req.body.idUsers, req.body.date,],
-        (error, otvet) => {
+    db.query(`UPDATE ArtManagerBegin_StripBarsukKazan
+    SET Time = ?,
+    ListArtistComment_ListArtist = ?,
+    CommentDirector_ListArtist = ?,
+    Readiness = ?,
+    Comment_Readiness = ?,
+    CommentDirector_Readiness = ?,
+    SendListOfGirls = ?,
+    Comment_SendListOfGirls = ?,
+    CommentDirector_SendListOfGirls = ?,
+    ListDJ = ?,
+    Comment_ListDJ = ?,
+    CommentDirector_ListDJ = ?,
+    AnalyzeGraph = ?,
+    Comment_AnalyzeGraph = ?,
+    CommentDirector_AnalyzeGraph = ?,
+    ControlArtistAnalize = ?,
+    Comment_ControlArtistAnalize = ?,
+    CommentDirector_ControlArtistAnalize = ?,
+    FiveMinutes = ?,
+    Comment_FiveMinutes = ?,
+    CommentDirector_FiveMinutes = ?,
+    FirstCard = ?,
+    SecondCard = ?,
+    ThirdCard = ?,
+    Comment_Card = ?,
+    CommentDirector_Card = ?,
+    Control1 = ?,
+    Comment_Control1 = ?,
+    Control2 = ?,
+    Comment_Control2 = ?,
+    Control3 = ?,
+    Comment_Control3 = ?,
+    Control4 = ?,
+    Comment_Control4 = ?,
+    Control5 = ?,
+    Comment_Control5 = ?,
+    ToyOrder = ?,
+    Comment_ToyOrder = ?,
+    CommentDirector_ToyOrder = ?,
+    Status = ?,
+    WHERE Date = ? AND idArtManager = ?`,
+        [req.body.time, req.body.takeRadioTerminalTelephone, req.body.commentTakeRadioTerminalTelephone,req.body.commentDirectorTakeRadioTerminalTelephone,
+        req.body.sendMessageWatsApp, req.body.sendMessageTelegram, req.body.commentSendMessage,req.body.commentDirectorSendMessage,req.body.status,
+        req.body.date,req.body.id], (error) => {
             if (error) {
                 console.log(error);
             } else {
@@ -122,16 +164,18 @@ export const UpdateArtBegin = (req, res) => {
         });
 }
 
-export const UpdateArtEnd = (req, res) => {
-    db.query(`update ArtManagerEnd_StripBarsukKazan set CommentDirector_ReportCompletedArt = ?, CommentDirector_ReportCompleteMarket = ?, CommentDirector_SendReportChat = ?, CommentDirector_OrderDressingRoom = ? where  idArtManagerEnd = ? and Date = ?;`,
-        [req.body.commentDirectorReportCompletedArt,req.body.commentDirectorReportCompleteMarket, req.body.commentDirectorSendReportChat, req.body.commentDirectorOrderDressingRoom, idUser, req.body.date],
-        (error, otvet) => {
-            if (error) {
-                console.log(error);
-            } else {
-                res.status(200);
-            }
-        });
-}
+// export const UpdateArtEnd = (req, res) => {
+//     // db.query(``,
+//         [req.body.date, req.body.time, req.body.takeRadioTerminalTelephone, req.body.commentTakeRadioTerminalTelephone,req.body.commentDirectorTakeRadioTerminalTelephone,
+//             req.body.sendMessageWatsApp, req.body.sendMessageTelegram, req.body.commentSendMessage,req.body.commentDirectorSendMessage,
+//             req.body.idUsers],
+//         (error, otvet) => {
+//             if (error) {
+//                 console.log(error);
+//             } else {
+//                 res.status(200);
+//             }
+//         });
+// }
 
 
