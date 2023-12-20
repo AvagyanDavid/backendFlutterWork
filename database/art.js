@@ -213,6 +213,7 @@ export const UpdateArtEnd = (req, res) => {
                 fs.unlinkSync('public/' + currentPath);
                 fs.rename('public/temp_trash', currentPath);
             } else {
+                fs.unlinkSync('public/temp_trash');
                 res.status(200);
             }
         }
