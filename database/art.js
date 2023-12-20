@@ -113,7 +113,8 @@ export const CheckReportArtEnd = (req, res) => {
 export const UpdateArtBegin = (req, res) => {
     db.query(`UPDATE ArtManagerBegin_StripBarsukKazan
     SET Time = ?,
-    ListArtistComment_ListArtist = ?,
+    ListArtist = ?,
+    Comment_ListArtist = ?,
     CommentDirector_ListArtist = ?,
     Readiness = ?,
     Comment_Readiness = ?,
@@ -151,31 +152,69 @@ export const UpdateArtBegin = (req, res) => {
     ToyOrder = ?,
     Comment_ToyOrder = ?,
     CommentDirector_ToyOrder = ?,
-    Status = ?,
+    Status = ?
     WHERE Date = ? AND idArtManager = ?`,
-        [req.body.time, req.body.takeRadioTerminalTelephone, req.body.commentTakeRadioTerminalTelephone,req.body.commentDirectorTakeRadioTerminalTelephone,
-        req.body.sendMessageWatsApp, req.body.sendMessageTelegram, req.body.commentSendMessage,req.body.commentDirectorSendMessage,req.body.status,
-        req.body.date,req.body.id], (error) => {
+        [req.body.time, req.body.listArtist, req.body.commentListArtist, req.body.commentDirectorListArtist, req.body.readiness,
+        req.body.commentReadiness, req.body.commentDirectorReadiness, req.body.sendListOfGirls, req.body.commentSendListOfGirls,
+        req.body.commentDirectorSendListOfGirls, req.body.listDJ, req.body.commentListDJ, req.body.commentDirectorListDJ, req.body.analyzeGraph,
+        req.body.commentAnalyzeGraph, req.body.commentDirectorAnalyzeGraph, req.body.controlArtistAnalize, req.body.commentControlArtistAnalize,
+        req.body.commentDirectorControlArtistAnalize, req.body.fiveMinutes, req.body.commentFiveMinutes, req.body.commentDirectorFiveMinutes,
+        req.body.firstCard, req.body.secondCard, req.body.thirdCard, req.body.commentCard, req.body.commentDirectorCard, req.body.control1,
+        req.body.commentControl1, req.body.control2, req.body.commentControl2, req.body.control3, req.body.commentControl3, req.body.control4,
+        req.body.commentControl4, req.body.control5, req.body.commentControl5, req.body.toyOrder, req.body.commentToyOrder,
+        req.body.commentDirectorToyOrder, req.body.status, req.body.date, req.body.id], (error) => {
             if (error) {
                 console.log(error);
             } else {
                 res.status(200);
             }
-        });
+        }
+    );
 }
 
-// export const UpdateArtEnd = (req, res) => {
-//     // db.query(``,
-//         [req.body.date, req.body.time, req.body.takeRadioTerminalTelephone, req.body.commentTakeRadioTerminalTelephone,req.body.commentDirectorTakeRadioTerminalTelephone,
-//             req.body.sendMessageWatsApp, req.body.sendMessageTelegram, req.body.commentSendMessage,req.body.commentDirectorSendMessage,
-//             req.body.idUsers],
-//         (error, otvet) => {
-//             if (error) {
-//                 console.log(error);
-//             } else {
-//                 res.status(200);
-//             }
-//         });
-// }
-
-
+export const UpdateArtEnd = (req, res) => {
+    let currentPath = `${req.body.currentPhoto}`;
+    fs.rename('public/' + currentPath, 'temp_trash');
+    let namePhoto = currentPath.split('/', 2);
+    fs.rename(req.file.path, `${namePhoto[1]}`);
+    let reportCompletedArt = (req.body.reportCompletedArt === "true") ? 1 : 0;
+    let reportCompleteMarket = (req.body.reportCompleteMarket === "true") ? 1 : 0;
+    let art = (req.body.art === "true") ? 1 : 0;
+    let bar = (req.body.bar === "true") ? 1 : 0;
+    let market = (req.body.market === "true") ? 1 : 0;
+    let hostes = (req.body.hostes === "true") ? 1 : 0;
+    let orderDressingRoom = (req.body.orderDressingRoom === "true") ? 1 : 0;
+    db.query(`UPDATE 
+    SET Time = ?,
+    ReportCompletedArt = ?,
+    Comment_ReportCompleteArt = ?,
+    CommentDirector_ReportCompletedArt = ?,
+    ReportCompleteMarket = ?,
+    Comment_ReportCompleteMarket = ?,
+    CommentDirector_ReportCompleteMarket = ?,
+    Art = ?,
+    Bar = ?,
+    Market = ?,
+    Hostes = ?,
+    Comment_SendReportChat = ?,
+    CommentDirector_SendReportChat = ?,
+    OrderDressingRoom = ?,
+    Comment_OrderDressingRoom = ?,
+    CommentDirector_OrderDressingRoom = ?,
+    Status = ?
+    WHERE Date = ? AND idArtManagerEnd = ?`,
+        [req.body.time, reportCompletedArt, req.body.commentReportCompletedArt, req.body.commentDirectorReportCompletedArt,
+            reportCompleteMarket, req.body.commentReportCompleteMarket, req.body.commentDirectorReportCompleteMarket,
+            art, bar, market, hostes, req.body.commentSendReportChat, req.body.commentDirectorSendReportChat,
+            orderDressingRoom, req.body.commentOrderDressingRoom, req.body.commentDirectorOrderDressingRoom, req.body.status, req.body.date,
+            req.body.id], (error) => {
+            if (error) {
+                console.log(error);
+                fs.unlinkSync('public/' + currentPath);
+                fs.rename('public/temp_trash', currentPath);
+            } else {
+                res.status(200);
+            }
+        }
+    );
+}
