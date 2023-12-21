@@ -5,7 +5,6 @@ export const BarmanBegin = (req, res) => {
     let date = new Date();
     let today = date.toISOString().slice(0, 10);
     let time = date.toTimeString().split(" ")[0];
-    // const files = req.files;
 
     const newName = {
         "checkAndTakeAlcogolFile": null,
@@ -125,7 +124,7 @@ export const BarmanEnd = (req, res) => {
                 res.status(200);
             }
         });
-    }
+}
 
 export const ShowBarmanBegin = (req, res) => {
     db.query({
@@ -191,29 +190,27 @@ export const CheckReportBarmanEnd = (req, res) => {
     )
 }
 
-// export const UpdateBarmanBegin = (req, res) => {
-//    db.query(``,
-//         [req.body.commentDirectorTakeRadioTerminalTelephone,req.body.commentDirectorSendMessage,req.body.idUsers],
-//         (error, otvet) => {
-//             if (error) {
-//                 console.log(error);
-//             } else {
-//                 res.status(200);
-//             }
-//         });
-// }
+export const UpdateBarmanBegin = (req, res) => {
+   db.query(`update BarmanBegin_StripBarsukKazan set CommentDirector_OpenCheckout = ?, CommentDirector_CheckAndTakeAlcogol = ?, CommentDirector_ExtractorHumidifier = ?, CommentDirector_WriteStopList = ?, CommentDirector_RubTheDishes = ?, CommentDirector_WipeDustShelving = ?, CommentDirector_Cleaning = ? where idBarman = ? and Date = ?`,
+        [req.body.commentDirectorOpenCheckout,req.body.commentDirectorCheckAndTakeAlcogol,req.body.commentDirectorExtractorHumidifier,req.body.commentDirectorWriteStopList,req.body.commentDirectorRubTheDishes, req.body.commentDirectorWipeDustSelvingBegin, req.body.commentDirectorCleaning,req.body.idUsers,req.body.date],
+        (error, otvet) => {
+            if (error) {
+                console.log(error);
+            } else {
+                res.status(200);
+            }
+        });
+}
 
-// export const UpdateBarmanEnd = (req, res) => {
-//     // db.query(``,
-//         [req.body.date, req.body.time, req.body.takeRadioTerminalTelephone, req.body.commentTakeRadioTerminalTelephone,req.body.commentDirectorTakeRadioTerminalTelephone,
-//             req.body.sendMessageWatsApp, req.body.sendMessageTelegram, req.body.commentSendMessage,req.body.commentDirectorSendMessage,
-//             req.body.idUsers],
-//         (error, otvet) => {
-//             if (error) {
-//                 console.log(error);
-//             } else {
-//                 res.status(200);
-//             }
-//         });
-// }
+export const UpdateBarmanEnd = (req, res) => {
+    db.query(`update BarmanEnd_StripBarsukKazan set CommentDirector_Application = ?, CommentDirector_FillOutReport = ?, CommentDirector_CloseShift = ?, CommentDirector_CleanlinessWorkplace = ?, CommentDirector_WipeDustShelving = ? where idBarmanEnd = ? and Date = ?`,
+        [req.body.commentDirectorApplication,req.body.commentDirectorFillOutReport,req.body.commentDirectorCloseShift, req.body.commentDirectorCleanlinessWorkplace, req.body.commentDirectorWipeDustShelvingEnd,req.body.idUsers,req.body.date],
+        (error, otvet) => {
+            if (error) {
+                console.log(error);
+            } else {
+                res.status(200);
+            }
+        });
+}
 

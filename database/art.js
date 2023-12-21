@@ -171,7 +171,7 @@ export const UpdateArtBegin = (req, res) => {
         }
     );
 }
-
+    
 export const UpdateArtEnd = (req, res) => {
     let currentPath = `${req.body.currentPhoto}`;
     fs.rename('public/' + currentPath, 'temp_trash');
@@ -218,4 +218,28 @@ export const UpdateArtEnd = (req, res) => {
             }
         }
     );
+}
+
+export const UpdateDirectorArtBegin = (req, res) => {
+    db.query(`update ArtManagerBegin_StripBarsukKazan set CommentDirector_ListArtist = ?, CommentDirector_Readiness = ?, CommentDirector_SendListOfGirls = ?, CommentDirector_ListDJ = ?, CommentDirector_AnalyzeGraph = ?, CommentDirector_ControlArtistAnalize = ?, CommentDirector_FiveMinutes = ?, CommentDirector_Card = ?, CommentDirector_ToyOrder = ? where idArtManager = ? and Date = ?;`,
+        [ req.body.commentDirectorListArtist, req.body.commentDirectorReadiness, req.body.commentDirectorSendListOfGirls, req.body.commentDirectorListDJ, req.body.commentDirectorAnalyzeGraph, req.body.commentDirectorControlArtistAnalize, req.body.commentDirectorFiveMinutes, req.body.commentDirectorCard, req.body.commentDirectorToyOrder, req.body.idUsers, req.body.date,],
+        (error, otvet) => {
+            if (error) {
+                console.log(error);
+            } else {
+                res.status(200);
+            }
+        });
+}
+
+export const UpdateDirectorArtEnd = (req, res) => {
+    db.query(`update ArtManagerEnd_StripBarsukKazan set CommentDirector_ReportCompletedArt = ?, CommentDirector_ReportCompleteMarket = ?, CommentDirector_SendReportChat = ?, CommentDirector_OrderDressingRoom = ? where  idArtManagerEnd = ? and Date = ?;`,
+        [req.body.commentDirectorReportCompletedArt,req.body.commentDirectorReportCompleteMarket, req.body.commentDirectorSendReportChat, req.body.commentDirectorOrderDressingRoom, idUser, req.body.date],
+        (error, otvet) => {
+            if (error) {
+                console.log(error);
+            } else {
+                res.status(200);
+            }
+        });
 }
