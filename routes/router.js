@@ -1,7 +1,7 @@
 import  express from "express";
-import { CheckReportHostBegin, CheckReportHostEnd,HostBegin, HostEnd, ShowHostBegin, ShowHostEnd, UpdateHostBegin, UpdateHostEnd } from "../database/host.js";
+import { CheckReportHostBegin, CheckReportHostEnd,HostBegin, HostEnd, ShowHostBegin,ShowHostEnd, UpdateHostBegin, UpdateHostEnd } from "../database/host.js";
 import { ShowUser } from "../database/host.js";
-import { ArtBegin, ArtEnd, CheckReportArtBegin, CheckReportArtEnd, ShowArtBegin, ShowArtEnd,UpdateArtBegin, UpdateArtEnd, UpdateDirectorArtBegin, UpdateDirectorArtEnd} from "../database/art.js";
+import { ArtBegin, ArtEnd, CheckReportArtBegin, CheckReportArtEnd, ShowArtBegin, ShowArtEnd, UpdateDirectorArtBegin, UpdateDirectorArtEnd} from "../database/art.js";
 import { WaiterBegin, WaiterEnd, CheckReportWaiterBegin, CheckReportWaiterEnd,ShowWaiterEnd, ShowWaiterBegin, UpdateWaiterBegin, UpdateWaiterEnd} from "../database/waiter.js";
 import { BarmanBegin, BarmanEnd, CheckReportBarmanBegin,CheckReportBarmanEnd ,ShowBarmanBegin, ShowBarmanEnd,UpdateBarmanBegin,UpdateBarmanEnd} from "../database/barman.js";
 import multer from "multer";
@@ -20,8 +20,8 @@ router.post("/ArtBegin",ArtBegin);
 router.post("/ArtEnd",upload.single('orderDressingRoomFile'), ArtEnd);
 router.post("/ShowArtBegin", ShowArtBegin);
 router.post("/ShowArtEnd",ShowArtEnd);
-router.post('/UpdateArtBegin', UpdateArtBegin);
-router.post('/UpdateArtEnd', UpdateArtEnd);
+// router.post('/UpdateArtBegin', UpdateArtBegin);
+// router.post('/UpdateArtEnd', UpdateArtEnd);
 router.post('/UpdateDirectorArtBegin', UpdateDirectorArtBegin);
 router.post('/UpdateDirectorArtEnd', UpdateDirectorArtEnd);
 //Waiter
@@ -42,7 +42,8 @@ router.post('/BarmanBegin', upload.fields([
     {name: 'rubTheDishesFile', maxCount: 1},
     {name: 'cleaningFile', maxCount : 1},
 ]), BarmanBegin);
-router.post('/BarmanEnd', upload.single('cleanlinessWorkplaceFile'), BarmanEnd);
+router.post('/BarmanEnd', upload.fields([{name: 'cleanlinessWorkplaceFile',maxCount: 1},
+{name: 'wipeDustShelvingEndFile', maxCount: 1}]), BarmanEnd);
 router.post('/ShowBarmanBegin', ShowBarmanBegin);
 router.post('/ShowBarmanEnd', ShowBarmanEnd);
 

@@ -16,7 +16,21 @@ export const ArtBegin = (req, res) => {
 export const ShowArtBegin = (req, res) => {
     db.query({
         dateStrings: true,
-        sql: `select idArtManager,ArtManagerBegin_StripBarsukKazan.ListArtist, ArtManagerBegin_StripBarsukKazan.Comment_ListArtist, ArtManagerBegin_StripBarsukKazan.CommentDirector_ListArtist,ArtManagerBegin_StripBarsukKazan.Readiness, ArtManagerBegin_StripBarsukKazan.Comment_Readiness,ArtManagerBegin_StripBarsukKazan.CommentDirector_Readiness,ArtManagerBegin_StripBarsukKazan.SendListOfGirls, ArtManagerBegin_StripBarsukKazan.Comment_SendListOfGirls, ArtManagerBegin_StripBarsukKazan.CommentDirector_SendListOfGirls,ArtManagerBegin_StripBarsukKazan.ListDJ , ArtManagerBegin_StripBarsukKazan.Comment_ListDJ,  ArtManagerBegin_StripBarsukKazan.CommentDirector_ListDJ, ArtManagerBegin_StripBarsukKazan.AnalyzeGraph , ArtManagerBegin_StripBarsukKazan.Comment_AnalyzeGraph, ArtManagerBegin_StripBarsukKazan.CommentDirector_AnalyzeGraph,ArtManagerBegin_StripBarsukKazan.ControlArtistAnalize ,ArtManagerBegin_StripBarsukKazan.Comment_ControlArtistAnalize, ArtManagerBegin_StripBarsukKazan.CommentDirector_ControlArtistAnalize,ArtManagerBegin_StripBarsukKazan.FiveMinutes, ArtManagerBegin_StripBarsukKazan.Comment_FiveMinutes, ArtManagerBegin_StripBarsukKazan.CommentDirector_FiveMinutes,ArtManagerBegin_StripBarsukKazan.FirstCard , ArtManagerBegin_StripBarsukKazan.SecondCard, ArtManagerBegin_StripBarsukKazan.ThirdCard , ArtManagerBegin_StripBarsukKazan.Comment_Card,ArtManagerBegin_StripBarsukKazan.CommentDirector_Card,ArtManagerBegin_StripBarsukKazan.Control1, ArtManagerBegin_StripBarsukKazan.Comment_Control1,ArtManagerBegin_StripBarsukKazan.Control2 , ArtManagerBegin_StripBarsukKazan.Comment_Control2,ArtManagerBegin_StripBarsukKazan.Control3 , ArtManagerBegin_StripBarsukKazan.Comment_Control3,ArtManagerBegin_StripBarsukKazan.Control4 , ArtManagerBegin_StripBarsukKazan.Comment_Control4,ArtManagerBegin_StripBarsukKazan.Control5 , ArtManagerBegin_StripBarsukKazan.Comment_Control5,ArtManagerBegin_StripBarsukKazan.ToyOrder , ArtManagerBegin_StripBarsukKazan.Comment_ToyOrder, ArtManagerBegin_StripBarsukKazan.CommentDirector_ToyOrder from Users,ArtManagerBegin_StripBarsukKazan where ArtManagerBegin_StripBarsukKazan.Date = '${req.body.Date}' AND Users.idUsers = ArtManagerBegin_StripBarsukKazan.Users_idUsers;`
+        sql: `select idArtManager,ArtManagerBegin_StripBarsukKazan.ListArtist, ArtManagerBegin_StripBarsukKazan.Comment_ListArtist, ArtManagerBegin_StripBarsukKazan.CommentDirector_ListArtist,
+        ArtManagerBegin_StripBarsukKazan.Readiness, ArtManagerBegin_StripBarsukKazan.Comment_Readiness,ArtManagerBegin_StripBarsukKazan.CommentDirector_Readiness,
+        ArtManagerBegin_StripBarsukKazan.SendListOfGirls, ArtManagerBegin_StripBarsukKazan.Comment_SendListOfGirls, ArtManagerBegin_StripBarsukKazan.CommentDirector_SendListOfGirls,
+        ArtManagerBegin_StripBarsukKazan.ListDJ , ArtManagerBegin_StripBarsukKazan.Comment_ListDJ,  ArtManagerBegin_StripBarsukKazan.CommentDirector_ListDJ,
+        ArtManagerBegin_StripBarsukKazan.AnalyzeGraph , ArtManagerBegin_StripBarsukKazan.Comment_AnalyzeGraph, ArtManagerBegin_StripBarsukKazan.CommentDirector_AnalyzeGraph,
+        ArtManagerBegin_StripBarsukKazan.ControlArtistAnalize ,ArtManagerBegin_StripBarsukKazan.Comment_ControlArtistAnalize, ArtManagerBegin_StripBarsukKazan.CommentDirector_ControlArtistAnalize,
+        ArtManagerBegin_StripBarsukKazan.FiveMinutes, ArtManagerBegin_StripBarsukKazan.Comment_FiveMinutes, ArtManagerBegin_StripBarsukKazan.CommentDirector_FiveMinutes,
+        ArtManagerBegin_StripBarsukKazan.FirstCard , ArtManagerBegin_StripBarsukKazan.SecondCard, ArtManagerBegin_StripBarsukKazan.ThirdCard , ArtManagerBegin_StripBarsukKazan.Comment_Card,ArtManagerBegin_StripBarsukKazan.CommentDirector_Card,
+        ArtManagerBegin_StripBarsukKazan.Control1, ArtManagerBegin_StripBarsukKazan.Comment_Control1,
+        ArtManagerBegin_StripBarsukKazan.Control2 , ArtManagerBegin_StripBarsukKazan.Comment_Control2,
+        ArtManagerBegin_StripBarsukKazan.Control3 , ArtManagerBegin_StripBarsukKazan.Comment_Control3,
+        ArtManagerBegin_StripBarsukKazan.Control4 , ArtManagerBegin_StripBarsukKazan.Comment_Control4,
+        ArtManagerBegin_StripBarsukKazan.Control5 , ArtManagerBegin_StripBarsukKazan.Comment_Control5,
+        ArtManagerBegin_StripBarsukKazan.ToyOrder , ArtManagerBegin_StripBarsukKazan.Comment_ToyOrder, ArtManagerBegin_StripBarsukKazan.CommentDirector_ToyOrder, 
+        Users_idUsers from Users,ArtManagerBegin_StripBarsukKazan where ArtManagerBegin_StripBarsukKazan.Date = '${req.body.Date}' AND Users.idUsers = ArtManagerBegin_StripBarsukKazan.Users_idUsers;`
     }, (error, otvet) => {
         if (error) {
             console.log(error);
@@ -71,7 +85,10 @@ export const ArtEnd = (req, res) => {
 export const ShowArtEnd = (req, res) => {
     db.query({
         dateStrings: true,
-        sql: `select ArtManagerEnd_StripBarsukKazan.idArtManagerEnd, ArtManagerEnd_StripBarsukKazan.Date, ArtManagerEnd_StripBarsukKazan.Time, ArtManagerEnd_StripBarsukKazan.ReportCompletedArt,ArtManagerEnd_StripBarsukKazan.Comment_ReportCompleteArt, ArtManagerEnd_StripBarsukKazan.CommentDirector_ReportCompletedArt, ArtManagerEnd_StripBarsukKazan.ReportCompleteMarket,ArtManagerEnd_StripBarsukKazan.Comment_ReportCompleteMarket, ArtManagerEnd_StripBarsukKazan.CommentDirector_ReportCompleteMarket, ArtManagerEnd_StripBarsukKazan.Art,ArtManagerEnd_StripBarsukKazan.Bar , ArtManagerEnd_StripBarsukKazan.Market,ArtManagerEnd_StripBarsukKazan.Hostes , ArtManagerEnd_StripBarsukKazan.Comment_SendReportChat, ArtManagerEnd_StripBarsukKazan.CommentDirector_SendReportChat,ArtManagerEnd_StripBarsukKazan.OrderDressingRoom ,ArtManagerEnd_StripBarsukKazan.OrderDressingRoomPhoto, ArtManagerEnd_StripBarsukKazan.Comment_OrderDressingRoom,ArtManagerEnd_StripBarsukKazan.CommentDirector_OrderDressingRoom from Users,ArtManagerEnd_StripBarsukKazan where ArtManagerEnd_StripBarsukKazan.Date = '${req.body.Date}' AND Users.idUsers = ArtManagerEnd_StripBarsukKazan.Users_idUsers;`
+        sql: `select ArtManagerEnd_StripBarsukKazan.idArtManagerEnd, ArtManagerEnd_StripBarsukKazan.Date, ArtManagerEnd_StripBarsukKazan.Time, ArtManagerEnd_StripBarsukKazan.ReportCompletedArt,ArtManagerEnd_StripBarsukKazan.Comment_ReportCompleteArt, ArtManagerEnd_StripBarsukKazan.CommentDirector_ReportCompletedArt,
+        ArtManagerEnd_StripBarsukKazan.ReportCompleteMarket,ArtManagerEnd_StripBarsukKazan.Comment_ReportCompleteMarket, ArtManagerEnd_StripBarsukKazan.CommentDirector_ReportCompleteMarket,
+        ArtManagerEnd_StripBarsukKazan.Art,ArtManagerEnd_StripBarsukKazan.Bar , ArtManagerEnd_StripBarsukKazan.Market,ArtManagerEnd_StripBarsukKazan.Hostes , ArtManagerEnd_StripBarsukKazan.Comment_SendReportChat, ArtManagerEnd_StripBarsukKazan.CommentDirector_SendReportChat,
+        ArtManagerEnd_StripBarsukKazan.OrderDressingRoom ,ArtManagerEnd_StripBarsukKazan.OrderDressingRoomPhoto, ArtManagerEnd_StripBarsukKazan.Comment_OrderDressingRoom,ArtManagerEnd_StripBarsukKazan.CommentDirector_OrderDressingRoom, Users_idUsers from Users,ArtManagerEnd_StripBarsukKazan where ArtManagerEnd_StripBarsukKazan.Date = '${req.body.Date}' AND Users.idUsers = ArtManagerEnd_StripBarsukKazan.Users_idUsers;`
     }, (error, otvet) => {
         if (error) {
             console.log(error);
@@ -221,7 +238,7 @@ export const UpdateArtEnd = (req, res) => {
 }
 
 export const UpdateDirectorArtBegin = (req, res) => {
-    db.query(`update ArtManagerBegin_StripBarsukKazan set CommentDirector_ListArtist = ?, CommentDirector_Readiness = ?, CommentDirector_SendListOfGirls = ?, CommentDirector_ListDJ = ?, CommentDirector_AnalyzeGraph = ?, CommentDirector_ControlArtistAnalize = ?, CommentDirector_FiveMinutes = ?, CommentDirector_Card = ?, CommentDirector_ToyOrder = ? where idArtManager = ? and Date = ?;`,
+    db.query(`update ArtManagerBegin_StripBarsukKazan set CommentDirector_ListArtist = ?, CommentDirector_Readiness = ?, CommentDirector_SendListOfGirls = ?, CommentDirector_ListDJ = ?, CommentDirector_AnalyzeGraph = ?, CommentDirector_ControlArtistAnalize = ?, CommentDirector_FiveMinutes = ?, CommentDirector_Card = ?, CommentDirector_ToyOrder = ? where Users_idUsers = ? and Date = ?;`,
         [ req.body.commentDirectorListArtist, req.body.commentDirectorReadiness, req.body.commentDirectorSendListOfGirls, req.body.commentDirectorListDJ, req.body.commentDirectorAnalyzeGraph, req.body.commentDirectorControlArtistAnalize, req.body.commentDirectorFiveMinutes, req.body.commentDirectorCard, req.body.commentDirectorToyOrder, req.body.idUsers, req.body.date,],
         (error, otvet) => {
             if (error) {
@@ -233,8 +250,8 @@ export const UpdateDirectorArtBegin = (req, res) => {
 }
 
 export const UpdateDirectorArtEnd = (req, res) => {
-    db.query(`update ArtManagerEnd_StripBarsukKazan set CommentDirector_ReportCompletedArt = ?, CommentDirector_ReportCompleteMarket = ?, CommentDirector_SendReportChat = ?, CommentDirector_OrderDressingRoom = ? where  idArtManagerEnd = ? and Date = ?;`,
-        [req.body.commentDirectorReportCompletedArt,req.body.commentDirectorReportCompleteMarket, req.body.commentDirectorSendReportChat, req.body.commentDirectorOrderDressingRoom, idUser, req.body.date],
+    db.query(`update ArtManagerEnd_StripBarsukKazan set CommentDirector_ReportCompletedArt = ?, CommentDirector_ReportCompleteMarket = ?, CommentDirector_SendReportChat = ?, CommentDirector_OrderDressingRoom = ? where  Users_idUsers = ? and Date = ?;`,
+        [req.body.commentDirectorReportCompletedArt,req.body.commentDirectorReportCompleteMarket, req.body.commentDirectorSendReportChat, req.body.commentDirectorOrderDressingRoom, req.body.idUsers, req.body.date],
         (error, otvet) => {
             if (error) {
                 console.log(error);

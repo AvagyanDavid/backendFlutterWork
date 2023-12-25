@@ -51,8 +51,8 @@ export const BarmanBegin = (req, res) => {
         extractorHumidifier,req.body.commentExtractorHumidifier,req.body.commentDirectorExtractorHumidifier,
         writeStopList, req.body.commentWriteStopList, req.body.commentDirectorWriteStopList,
         rubTheDishes,currentPath['rubTheDishesFile'], req.body.commentRubTheDishes, req.body.commentDirectorRubTheDishes,
-        wipeDustShelvingBegin, currentPath['wipeDustShelvingBeginFile'],req.body.commentWipeDustSelvingBegin, req.body.commentDirectorWipeDustSelvingBegin,
-        cleaning,currentPath['cleaningFile'], req.body.commentCleaning, req.body.commentDirectorCleaning,  idUser],
+        wipeDustShelvingBegin, currentPath['wipeDustShelvingBeginFile'],req.body.commentWipeDustShelvingBegin, req.body.commentDirectorWipeDustShelvingBegin,
+        cleaning, currentPath['cleaningFile'], req.body.commentCleaning, req.body.commentDirectorCleaning, idUser],
     (error, otvet) => {
         if (error) {
             console.log(error);
@@ -73,12 +73,12 @@ export const BarmanEnd = (req, res) => {
     let time = date.toTimeString().split(" ")[0];
 
     const newName = {
-        "cleanlinessWorkplacePath" : null,
+        "cleanlinessWorkplaceFile" : null,
         "wipeDustShelvingEndFile": null,
     };
 
     const currentPath = {
-        "cleanlinessWorkplacePath" : null,
+        "cleanlinessWorkplaceFile" : null,
         "wipeDustShelvingEndFile": null,
     };
 
@@ -106,15 +106,15 @@ export const BarmanEnd = (req, res) => {
 
     db.query(`INSERT INTO BarmanEnd_StripBarsukKazan (Date,Time,Alcogol,Nonalcogol,Tobacco,Comment_Application,CommentDirector_Application,FillOutReport,Comment_FillOutReport,
         CommentDirector_FillOutReport,CloseShift,Comment_CloseShift,CommentDirector_CloseShift,CleanlinessWorkplace,CleanlinessWorkplacePhoto,Comment_CleanlinessWorkplace,
-        CommentDirector_CleanlinessWorkplace,WipeDustShelving,WipeDustShelvingPhoto,Comment_WipeDustShelving,CommentDirector_WipeDustShelving,Users_idUsers) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
+        CommentDirector_CleanlinessWorkplace,WipeDustShelving,WipeDustShelvingPhoto,Comment_WipeDustShelving,CommentDirector_WipeDustShelving,Users_idUsers) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
         [req.body.date, req.body.time, alcogol, nonalcogol, tobacco,req.body.commentApplication, req.body.commentDirectorApplication,
         fillOutReport,req.body.commentFillOutReport, req.body.commentDirectorFillOutReport,
         closeShift, req.body.commentCloseShift, req.body.commentDirectorCloseShift,
-        cleanlinessWorkplace, currentPath['cleanlinessWorkplacePath'], req.body.commentCleanlinessWorkplace, req.body.commentDirectorCleanlinessWorkplace,
+        cleanlinessWorkplace, currentPath['cleanlinessWorkplaceFile'], req.body.commentCleanlinessWorkplace, req.body.commentDirectorCleanlinessWorkplace,
         wipeDustShelvingEnd,currentPath['wipeDustShelvingEndFile'],req.body.commentWipeDustShelvingEnd,req.body.commentDirectorWipeDustShelvingEnd,idUser],
-        (err, otvet) => {
-            if (error) {
-                console.log(error);
+        (err) => {
+            if (err) {
+                console.log(err);
                 for (var i in currentPath) {
                     fs.unlinkSync('public/' + currentPath[i]);
                     console.log(`Remove image from ${currentPath[i]}`);
@@ -129,11 +129,13 @@ export const BarmanEnd = (req, res) => {
 export const ShowBarmanBegin = (req, res) => {
     db.query({
         dateStrings: true,
-        sql: `select OpenCheckout,Comment_OpenCheckout,CommentDirector_OpenCheckout,CheckAndTakeAlcogol,CheckAndTakeAlcogolPhoto,
-        Comment_CheckAndTakeAlcogol,CommentDirector_CheckAndTakeAlcogol,ExtractorHumidifier,Comment_ExtractorHumidifier,CommentDirector_ExtractorHumidifier,WriteStopList,
-            Comment_WriteStopList, CommentDirector_WriteStopList,  RubTheDishes,RubTheDishesPhoto,Comment_RubTheDishes,CommentDirector_RubTheDishes,
-            wipeDustShelving, WipeDustShelvingPhoto, Comment_WipeDustShelving, CommentDirector_WipeDustShelving,
-            Cleaning,CleaningPhoto,Comment_Cleaning,CommentDirector_Cleaning, Users.Login
+        sql: `select OpenCheckout,Comment_OpenCheckout,CommentDirector_OpenCheckout,
+        CheckAndTakeAlcogol,CheckAndTakeAlcogolPhoto,Comment_CheckAndTakeAlcogol,CommentDirector_CheckAndTakeAlcogol,
+        ExtractorHumidifier,Comment_ExtractorHumidifier,CommentDirector_ExtractorHumidifier,
+        WriteStopList,Comment_WriteStopList, CommentDirector_WriteStopList,
+        RubTheDishes,RubTheDishesPhoto,Comment_RubTheDishes,CommentDirector_RubTheDishes,
+        WipeDustShelving, WipeDustShelvingPhoto, Comment_WipeDustShelving, CommentDirector_WipeDustShelving,
+        Cleaning,CleaningPhoto,Comment_Cleaning,CommentDirector_Cleaning, Users.Login, Users_idUsers
         from Users, BarmanBegin_StripBarsukKazan where BarmanBegin_StripBarsukKazan.Date = '${req.body.Date}' AND Users.idUsers = BarmanBegin_StripBarsukKazan.Users_idUsers;`
     }, (error, otvet) => {
         if (error) {
@@ -148,9 +150,11 @@ export const ShowBarmanBegin = (req, res) => {
 export const ShowBarmanEnd = (req, res) => {
     db.query({
         dateStrings: true,
-        sql: `select Alcogol,Nonalcogol,Tobacco,Comment_Application,CommentDirector_Application,FillOutReport,Comment_FillOutReport,
-        CommentDirector_FillOutReport,CloseShift,Comment_CloseShift,CommentDirector_CloseShift,CleanlinessWorkplace,CleanlinessWorkplacePhoto,Comment_CleanlinessWorkplace,
-        CommentDirector_CleanlinessWorkplace,WipeDustShelving,WipeDustShelvingPhoto,Comment_WipeDustShelving,CommentDirector_WipeDustShelving, Users.Login
+        sql: `select Alcogol,Nonalcogol,Tobacco,Comment_Application,CommentDirector_Application,
+        FillOutReport,Comment_FillOutReport,CommentDirector_FillOutReport,
+        CloseShift,Comment_CloseShift,CommentDirector_CloseShift,
+        CleanlinessWorkplace,CleanlinessWorkplacePhoto,Comment_CleanlinessWorkplace,CommentDirector_CleanlinessWorkplace,
+        WipeDustShelving,WipeDustShelvingPhoto,Comment_WipeDustShelving,CommentDirector_WipeDustShelving, Users.Login, Users_idUsers
         from Users, BarmanEnd_StripBarsukKazan where BarmanEnd_StripBarsukKazan.Date = '${req.body.Date}' AND Users.idUsers = BarmanEnd_StripBarsukKazan.Users_idUsers;`
     }, (error, otvet) => {
         if (error) {
@@ -191,7 +195,7 @@ export const CheckReportBarmanEnd = (req, res) => {
 }
 
 export const UpdateBarmanBegin = (req, res) => {
-   db.query(`update BarmanBegin_StripBarsukKazan set CommentDirector_OpenCheckout = ?, CommentDirector_CheckAndTakeAlcogol = ?, CommentDirector_ExtractorHumidifier = ?, CommentDirector_WriteStopList = ?, CommentDirector_RubTheDishes = ?, CommentDirector_WipeDustShelving = ?, CommentDirector_Cleaning = ? where idBarman = ? and Date = ?`,
+   db.query(`update BarmanBegin_StripBarsukKazan set CommentDirector_OpenCheckout = ?, CommentDirector_CheckAndTakeAlcogol = ?, CommentDirector_ExtractorHumidifier = ?, CommentDirector_WriteStopList = ?, CommentDirector_RubTheDishes = ?, CommentDirector_WipeDustShelving = ?, CommentDirector_Cleaning = ? where Users_idUsers = ? and Date = ?`,
         [req.body.commentDirectorOpenCheckout,req.body.commentDirectorCheckAndTakeAlcogol,req.body.commentDirectorExtractorHumidifier,req.body.commentDirectorWriteStopList,req.body.commentDirectorRubTheDishes, req.body.commentDirectorWipeDustSelvingBegin, req.body.commentDirectorCleaning,req.body.idUsers,req.body.date],
         (error, otvet) => {
             if (error) {
@@ -203,7 +207,7 @@ export const UpdateBarmanBegin = (req, res) => {
 }
 
 export const UpdateBarmanEnd = (req, res) => {
-    db.query(`update BarmanEnd_StripBarsukKazan set CommentDirector_Application = ?, CommentDirector_FillOutReport = ?, CommentDirector_CloseShift = ?, CommentDirector_CleanlinessWorkplace = ?, CommentDirector_WipeDustShelving = ? where idBarmanEnd = ? and Date = ?`,
+    db.query(`update BarmanEnd_StripBarsukKazan set CommentDirector_Application = ?, CommentDirector_FillOutReport = ?, CommentDirector_CloseShift = ?, CommentDirector_CleanlinessWorkplace = ?, CommentDirector_WipeDustShelving = ? where Users_idUsers = ? and Date = ?`,
         [req.body.commentDirectorApplication,req.body.commentDirectorFillOutReport,req.body.commentDirectorCloseShift, req.body.commentDirectorCleanlinessWorkplace, req.body.commentDirectorWipeDustShelvingEnd,req.body.idUsers,req.body.date],
         (error, otvet) => {
             if (error) {

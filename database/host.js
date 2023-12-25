@@ -14,7 +14,7 @@ export const ShowUser = (req, res) => {
 
 // отправка данных с условием
 export const ShowHostBegin = (req, res) => {
-    db.query('select HostBegin_StripBarsukKazan.TakeRadioTerminalTelephone, HostBegin_StripBarsukKazan.Comment_TakeRadioTerminalTelephone, HostBegin_StripBarsukKazan.SendMessageTelegram,HostBegin_StripBarsukKazan.SendMessageWatsApp, HostBegin_StripBarsukKazan.Comment_SendMessage, Users.Login from Users, HostBegin_StripBarsukKazan where HostBegin_StripBarsukKazan.Date = ? and Users.idUsers = HostBegin_StripBarsukKazan.Users_idUsers',
+    db.query('select HostBegin_StripBarsukKazan.TakeRadioTerminalTelephone, HostBegin_StripBarsukKazan.Comment_TakeRadioTerminalTelephone,HostBegin_StripBarsukKazan.CommentDirector_TakeRadioTerminalTelephone, HostBegin_StripBarsukKazan.SendMessageTelegram,HostBegin_StripBarsukKazan.SendMessageWatsApp, HostBegin_StripBarsukKazan.Comment_SendMessage,HostBegin_StripBarsukKazan.CommentDirector_SendMessage, Users.Login, Users.idUsers from Users, HostBegin_StripBarsukKazan where HostBegin_StripBarsukKazan.Date = ? and Users.idUsers = HostBegin_StripBarsukKazan.Users_idUsers',
     [req.body.Date], (error, otvet) => {
         if (error) { 
             console.log(error);
@@ -29,11 +29,10 @@ export const ShowHostBegin = (req, res) => {
 
 
 export const ShowHostEnd = (req, res) => {
-    db.query({
-        dateStrings: true,
-        sql: `select HostEnd_StripBarsukKazan.ChargerRadioTerminalTelephone,HostEnd_StripBarsukKazan.Comment_ChargerRadioTerminalTelephone, HostEnd_StripBarsukKazan.CleanWorkplace, HostEnd_StripBarsukKazan.WorkplacePhoto, Users.Login
-        from HostEnd_StripBarsukKazan, Users where HostEnd_StripBarsukKazan.Date = '${req.body.Date}' AND Users.idUsers = HostEnd_StripBarsukKazan.Users_idUsers;`
-    }, (error, otvet) => {
+    db.query(`select HostEnd_StripBarsukKazan.ChargerRadioTerminalTelephone,HostEnd_StripBarsukKazan.Comment_ChargerRadioTerminalTelephone,HostEnd_StripBarsukKazan.CommentDirector_ChargerRadioTerminalTelephone,
+         HostEnd_StripBarsukKazan.CleanWorkplace, HostEnd_StripBarsukKazan.Comment_Workplace,HostEnd_StripBarsukKazan.CommentDirector_Workplace, HostEnd_StripBarsukKazan.WorkplacePhoto, Users.Login, Users.idUsers
+        from HostEnd_StripBarsukKazan, Users where HostEnd_StripBarsukKazan.Date = ? AND Users.idUsers = HostEnd_StripBarsukKazan.Users_idUsers;`,
+        [req.body.Date], (error, otvet) => {
         if (error) {
             console.log(error);
         } else {
@@ -123,7 +122,8 @@ export const CheckReportHostEnd = (req, res) => {
 }
 
 export const UpdateHostBegin = (req, res) => {
-    db.query(`update HostBegin_StripBarsukKazan set CommentDirector_TakeRadioTerminalTelephone = ?, CommentDirector_SendMessage = ? where idHostBegin = ? and Date = ?;`,
+    console.log(req.body);
+    db.query(`update HostBegin_StripBarsukKazan set CommentDirector_TakeRadioTerminalTelephone = ?, CommentDirector_SendMessage = ? where Users_idUsers = ? and Date = ?;`,
         [req.body.commentDirectorTakeRadioTerminalTelephone,req.body.commentDirectorSendMessage,req.body.idUsers, req.body.date],
         (error, otvet) => {
             if (error) {
@@ -136,7 +136,7 @@ export const UpdateHostBegin = (req, res) => {
 }
 
 export const UpdateHostEnd = (req, res) => {
-    db.query(`update HostEnd_StripBarsukKazan set CommentDirector_ChargerRadioTerminalTelephone = ?, CommentDirector_Workplace = ? where idHostEnd = ? and Date = ?;`,
+    db.query(`update HostEnd_StripBarsukKazan set CommentDirector_ChargerRadioTerminalTelephone = ?, CommentDirector_Workplace = ? where Users_idUsers = ? and Date = ?;`,
         [req.body.commentDirectorChargeRadioTerminalTelephone, req.body.commentDirectorCleanlinessWorkplaceHost,req.body.idUsers,req.body.date],
         (error, otvet) => {
             if (error) {
@@ -144,7 +144,8 @@ export const UpdateHostEnd = (req, res) => {
             } else {
                 res.status(200);
             }
-        });
+        }
+    );
 }
 
 
