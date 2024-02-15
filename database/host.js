@@ -1,17 +1,6 @@
 import { db } from './connect.js';
 import fs from 'fs';
 
-// отображение данных
-export const ShowUser = (req, res) => {
-    db.query("select * from Barsuk.Users WHERE idUsers = ?", [req.body.idUsers], (err, otvet) => {
-        if (err) {
-            console.log(err);
-        } else {
-            res.json(otvet[0]);
-        }
-    })
-}
-
 // отправка данных с условием
 export const ShowHostBegin = (req, res) => {
     db.query('select HostBegin_StripBarsukKazan.TakeRadioTerminalTelephone, HostBegin_StripBarsukKazan.Comment_TakeRadioTerminalTelephone,HostBegin_StripBarsukKazan.CommentDirector_TakeRadioTerminalTelephone, HostBegin_StripBarsukKazan.SendMessageTelegram,HostBegin_StripBarsukKazan.SendMessageWatsApp, HostBegin_StripBarsukKazan.Comment_SendMessage,HostBegin_StripBarsukKazan.CommentDirector_SendMessage, Users.Login, Users.idUsers from Users, HostBegin_StripBarsukKazan where HostBegin_StripBarsukKazan.Date = ? and Users.idUsers = HostBegin_StripBarsukKazan.Users_idUsers',
